@@ -38,7 +38,7 @@ public abstract class BaseBot {
 
         gameState = basicAccess ? loadBasicState() : loadAdvancedState();
 
-        loadAdvancedState();
+        //loadAdvancedState();
 
         logMatchState();
 

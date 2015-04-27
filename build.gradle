@@ -32,3 +32,11 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+task("createRun", dependsOn: 'assemble') {
+    def runfile = new File("run.sh");
+    def cmd = "java -jar build/libs/${project.name}-${project.version}.jar \$1\n"
+    runfile.write("#!/bin/bash\n" + cmd)
+    def winfile = new File("run.bat")
+    winfile.write(cmd)
+}
