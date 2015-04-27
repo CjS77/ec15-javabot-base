@@ -1,3 +1,5 @@
 #!/bin/bash
 
-mvn clean compile assembly:single
+#mvn clean compile assembly:single
+gradle clean
+gradle build

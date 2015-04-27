@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java -jar target/BasicBot-1.0-SNAPSHOT-jar-with-dependencies.jar $1
+java -jar build/libs/base-bot-0.1.jar $1
