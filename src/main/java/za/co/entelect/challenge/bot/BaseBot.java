@@ -21,11 +21,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-public class BasicBot {
+public abstract class BaseBot {
 
     private Settings settings = null;
 
-    public BasicBot(Settings settings) {
+    public BaseBot(Settings settings) {
         this.settings = settings;
     }
 
@@ -45,7 +45,7 @@ public class BasicBot {
         StringBuilder map = loadMap();
         LogHelper.logPartsOnDifferentLines("Map", map);
 
-        String move = getRandomMove();
+        String move = getMove();
         saveMove(move);
     }
 
@@ -204,13 +204,10 @@ public class BasicBot {
         }
     }
 
-    private String getRandomMove() {
-        long seed = System.currentTimeMillis();
-        Random random = new Random(seed);
-        int move = Math.abs(random.nextInt() % ShipCommand.values().length);
-        String translatedMove = BotHelper.translateMove(move);
-        return translatedMove;
-    }
+    /*
+     * Implementing bots must provide a move method
+     */
+    protected abstract String getMove();
 
     private void saveMove(String move) {
         try {

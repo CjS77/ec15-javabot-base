@@ -1,6 +1,7 @@
 package za.co.entelect.challenge.program;
 
-import za.co.entelect.challenge.bot.BasicBot;
+import za.co.entelect.challenge.bot.BaseBot;
+import za.co.entelect.challenge.bot.RandomBot;
 import za.co.entelect.challenge.dto.Settings;
 import za.co.entelect.challenge.utils.LogHelper;
 import za.co.entelect.challenge.utils.StringUtility;
@@ -24,7 +25,7 @@ public class Main {
 
         getDefaultFolderNameFromArguments(args, settings);
 
-        BasicBot bot = new BasicBot(settings);
+        BaseBot bot = new RandomBot(settings);
         bot.execute();
 
         long runTime = System.currentTimeMillis() - startTime;
@@ -71,7 +72,7 @@ public class Main {
         }
     }
 
-    private static void printRunTime(BasicBot bot, long runTime) {
+    private static void printRunTime(BaseBot bot, long runTime) {
         LogHelper.log(LogHelper.PREFIX + getPlayerName(bot) + " finished in " + runTime + " ms.");
     }
 
@@ -81,7 +82,7 @@ public class Main {
      * @param bot
      * @return playerName
      */
-    private static String getPlayerName(BasicBot bot) {
+    private static String getPlayerName(BaseBot bot) {
         return bot.getPlayers().get(0).getPlayerName();
     }
 }
