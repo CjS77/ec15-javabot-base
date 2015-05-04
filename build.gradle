@@ -14,6 +14,7 @@ repositories {
 
 
 dependencies {
+    compile 'com.google.code.gson:gson:2.2.4'
     compile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.0.0'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.10'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.2.3'

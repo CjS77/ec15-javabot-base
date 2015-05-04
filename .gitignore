@@ -1,7 +1,8 @@
+.classpath
+.project
+.settings/**
 *.iml
 .idea
-**/advanced/bot
-**/expert/bot
 logs
 **/*.log
 output
