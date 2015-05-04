@@ -46,9 +46,19 @@ task processTemplate(type: Copy) {
     expand(project: project)
 }
 
+task writeBotMeta(dependsOn: 'processTemplate') {
+    def botName = project.hasProperty('botName')? project.botName : project.ext.target
+    def builder = new groovy.json.JsonBuilder(
+        'Author': 'Cayle Sharrock',
+        'email': 'cayle.sharrock@gmail.com',
+        'NickName': "${botName}"
+    )
+    new File('bot.json').text = builder.toPrettyString()
+}
 
 
-task("createRun", dependsOn: ['processTemplate','assemble']) {
+
+task("createRun", dependsOn: ['processTemplate', 'writeBotMeta', 'assemble']) {
     println("Building ${project.ext.target}...")
     def runfile = new File("run.sh");
     def cmd = "java -jar build/libs/${project.ext.target}-${project.version}.jar \$1\n"
