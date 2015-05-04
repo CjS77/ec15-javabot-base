@@ -10,7 +10,6 @@ import za.co.entelect.challenge.dto.Player;
 import za.co.entelect.challenge.dto.Settings;
 import za.co.entelect.challenge.dto.enums.EntityType;
 import za.co.entelect.challenge.dto.enums.ShipCommand;
-import za.co.entelect.challenge.utils.BotHelper;
 import za.co.entelect.challenge.utils.FileHelper;
 import za.co.entelect.challenge.utils.LogHelper;
 
@@ -19,14 +18,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Random;
 
-public abstract class BaseBot {
+public class BaseBot {
 
     private Settings settings = null;
+    private final IRobot mRobot;
 
     public BaseBot(Settings settings) {
         this.settings = settings;
+        mRobot = new RandomBot();
+    }
+
+    public BaseBot(Settings settings, IRobot botInstance) {
+        this.settings = settings;
+        mRobot = botInstance;
     }
 
     private GameState gameState;
@@ -93,14 +98,11 @@ public abstract class BaseBot {
      * @return match
      */
     private GameState loadAdvancedState() {
-        GameState gameState = null;
-
+        GameState gameState;
         File jsonFile = FileHelper.getFile(settings.getDefaultOutputFolder(), settings.getStateFile());
-
         // ObjectMapper provides functionality for data binding between
         // Java Bean Objects/POJO and JSON constructs/string
         ObjectMapper mapper = new ObjectMapper();
-
         try {
             gameState = mapper.readValue(jsonFile, GameState.class);
         } catch (IOException ioe) {
@@ -108,7 +110,6 @@ public abstract class BaseBot {
             ioe.printStackTrace();
             return null;
         }
-
         return gameState;
     }
 
@@ -207,7 +208,11 @@ public abstract class BaseBot {
     /*
      * Implementing bots must provide a move method
      */
-    protected abstract String getMove();
+    protected String getMove() {
+        mRobot.setGameState(getGameState());
+        ShipCommand move = mRobot.calculateMove();
+        return move.toString();
+    }
 
     private void saveMove(String move) {
         try {
