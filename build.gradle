@@ -24,6 +24,8 @@ dependencies {
 }
 
 jar {
+    project.ext.target = project.hasProperty('target')? project.target : project.name
+    baseName = project.ext.target
     manifest {
         attributes 'Main-Class': 'za.co.entelect.challenge.program.Main'
     }
@@ -33,9 +35,22 @@ jar {
     }
 }
 
-task("createRun", dependsOn: 'assemble') {
+task processTemplate(type: Copy) {
+    project.ext.target = project.hasProperty('target')? project.target : project.name
+    println("Processing ${project.ext.target} templates...")
+    from 'src/templates'
+    into 'src/main/java/za/co/entelect/challenge/program'
+    //include 'mainT.java'
+    rename("MainT.java", "Main.java")
+    expand(project: project)
+}
+
+
+
+task("createRun", dependsOn: ['processTemplate','assemble']) {
+    println("Building ${project.ext.target}...")
     def runfile = new File("run.sh");
-    def cmd = "java -jar build/libs/${project.name}-${project.version}.jar \$1\n"
+    def cmd = "java -jar build/libs/${project.ext.target}-${project.version}.jar \$1\n"
     runfile.write("#!/bin/bash\n" + cmd)
     def winfile = new File("run.bat")
     winfile.write(cmd)

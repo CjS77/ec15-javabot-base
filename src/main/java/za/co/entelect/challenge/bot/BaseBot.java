@@ -205,9 +205,6 @@ public class BaseBot {
         }
     }
 
-    /*
-     * Implementing bots must provide a move method
-     */
     protected String getMove() {
         mRobot.setGameState(getGameState());
         ShipCommand move = mRobot.calculateMove();

@@ -9,3 +9,4 @@ build
 .gradle
 run.bat
 run.sh
+src/main/java/za/co/entelect/challenge/program/Main.java
