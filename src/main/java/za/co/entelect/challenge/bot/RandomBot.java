@@ -8,6 +8,13 @@ import za.co.entelect.challenge.utils.BotHelper;
 import java.util.Random;
 
 public class RandomBot implements IRobot {
+    private static final String NAME = "RandomBot";
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
     @Override
     public void setGameState(GameState state) {}
 

@@ -1,6 +1,7 @@
 package za.co.entelect.challenge.program;
 
 import za.co.entelect.challenge.bot.BaseBot;
+import za.co.entelect.challenge.bot.CycleBot;
 import za.co.entelect.challenge.bot.RandomBot;
 import za.co.entelect.challenge.dto.Settings;
 import za.co.entelect.challenge.utils.LogHelper;
@@ -25,7 +26,7 @@ public class Main {
 
         getDefaultFolderNameFromArguments(args, settings);
 
-        BaseBot bot = new RandomBot(settings);
+        BaseBot bot = new BaseBot(settings, new CycleBot());
         bot.execute();
 
         long runTime = System.currentTimeMillis() - startTime;

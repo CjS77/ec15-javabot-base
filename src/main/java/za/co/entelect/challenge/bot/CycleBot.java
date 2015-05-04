@@ -5,22 +5,35 @@ import za.co.entelect.challenge.dto.enums.ShipCommand;
 import za.co.entelect.challenge.utils.LogHelper;
 
 /**
- * Created by cayle on 5/4/15.
+ * Bot just cycles through set sequence
  */
 public class CycleBot implements IRobot {
-    int counter = 0;
+    private static final String NAME = "CycleBot";
+    private GameState state = null;
     ShipCommand[] moves = {ShipCommand.Shoot, ShipCommand.MoveLeft, ShipCommand.MoveLeft, ShipCommand.MoveLeft,
                            ShipCommand.Shoot, ShipCommand.MoveRight, ShipCommand.MoveRight, ShipCommand.MoveRight};
+
     @Override
-    public void setGameState(GameState state) {}
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public void setGameState(GameState state) {
+        this.state = state;
+    }
 
     @Override
     public ShipCommand calculateMove() {
-        return moves[counter++ % moves.length]
+        if (this.state == null) {
+            log("Received null state");
+        }
+        int round = state.getRoundNumber();
+        return moves[round % moves.length];
     }
 
     @Override
     public void log(String message) {
-        LogHelper
+        LogHelper.log("[Cyclebot]", message);
     }
 }

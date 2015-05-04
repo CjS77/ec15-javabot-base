@@ -7,3 +7,5 @@ logs
 output
 build
 .gradle
+run.bat
+run.sh
