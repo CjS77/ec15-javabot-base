@@ -27,7 +27,8 @@ public class RandomBot implements IRobot {
     }
 
     @Override
-    public void log(String message) {
-
+    public String getMessage() {
+        return null;
     }
+
 }

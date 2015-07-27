@@ -12,6 +12,7 @@ public class CycleBot implements IRobot {
     private GameState state = null;
     ShipCommand[] moves = {ShipCommand.Shoot, ShipCommand.MoveLeft, ShipCommand.MoveLeft, ShipCommand.MoveLeft,
                            ShipCommand.Shoot, ShipCommand.MoveRight, ShipCommand.MoveRight, ShipCommand.MoveRight};
+    private String message = null;
 
     @Override
     public String getName() {
@@ -26,14 +27,16 @@ public class CycleBot implements IRobot {
     @Override
     public ShipCommand calculateMove() {
         if (this.state == null) {
-            log("Received null state");
+            message =  "Received null state";
         }
         int round = state.getRoundNumber();
         return moves[round % moves.length];
     }
 
     @Override
-    public void log(String message) {
-        LogHelper.log("[Cyclebot]", message);
+    public String getMessage() {
+        return message;
     }
+
+
 }

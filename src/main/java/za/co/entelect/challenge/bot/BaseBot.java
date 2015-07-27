@@ -37,9 +37,9 @@ public class BaseBot {
 
         //Choose how you want to access the JSON
         GameStateReader reader = 
-                new BasicGameStateReader();
+                //new BasicGameStateReader();
                 //new JacksonGameStateReader();
-                //new GsonGameStateReader();
+                new GsonGameStateReader();
 
         gameState = loadGameState(reader);
         
@@ -103,6 +103,8 @@ public class BaseBot {
     protected String getMove() {
         mRobot.setGameState(getGameState());
         ShipCommand move = mRobot.calculateMove();
+        String msg = mRobot.getMessage();
+        if (msg != null && msg.length()>0) LogHelper.log(String.format("[%s]\n%s\n", mRobot.getName(), msg));
         return move.toString();
     }
 

@@ -10,5 +10,5 @@ public interface IRobot {
     String getName();
     void setGameState(GameState state);
     ShipCommand calculateMove();
-    void log(String message);
+    String getMessage();
 }
