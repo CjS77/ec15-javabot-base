@@ -1,1 +1,1 @@
-gradlew clean build createRun
+call gradlew.bat clean build createRun
